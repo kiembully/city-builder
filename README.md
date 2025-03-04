@@ -10,8 +10,8 @@ City Builder is a front-end application that allows users to dynamically create 
 - [x] Set up Git and commit the initial setup
 
 ### 2. UI & Components (4-6h)
-- Design and implement a responsive layout
-- Create reusable components (HouseCard, WeatherWidget, Controls)
+- [x] Design and implement a responsive layout
+- [x] Create reusable components (HouseCard, WeatherWidget, Controls)
 
 ### 3. House Management (6-8h)
 - Add, edit (color, floors, name), duplicate, and delete houses
