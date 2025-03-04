@@ -6,8 +6,8 @@ City Builder is a front-end application that allows users to dynamically create 
 ## Task Breakdown
 
 ### 1. Project Setup (1-2h)
-- Initialize Next.js with TypeScript, Tailwind, ESLint, and Prettier
-- Set up Git and commit the initial setup
+-[x] Initialize Next.js with TypeScript, Tailwind, ESLint, React Query, and Prettier
+-[x] Set up Git and commit the initial setup
 
 ### 2. UI & Components (4-6h)
 - Design and implement a responsive layout
