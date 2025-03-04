@@ -18,7 +18,7 @@ const Controls = () => {
       </div>
       <div className="bg-gray-700 p-4 space-y-4 flex flex-col">
         {houses.map((house) => (
-          <ControlCard key={house.id} houseId={house.id} onRemove={() => removeHouse(house.id)} />
+          <ControlCard key={house.id} onRemove={() => removeHouse(house.id)} />
         ))}
       </div>
       <div className="flex items-center justify-center bg-gray-800 p-2">
