@@ -14,15 +14,15 @@ City Builder is a front-end application that allows users to dynamically create 
 - [x] Create reusable components (HouseCard, WeatherWidget, Controls)
 
 ### 3. House Management (6-8h)
-- Add, edit (color, floors, name), duplicate, and delete houses
-- Ensure UI updates dynamically
+- [x] Add, edit (color, floors, name), duplicate, and delete houses
+- [x] Ensure UI updates dynamically
 
 ### 4. Weather Integration (4-6h)
 - Fetch and display real-time weather (sun, rain, snow, temperature)
 
 ### 5. State Management & Optimization (4-6h)
-- Implement state management (React Context/Zustand)
-- Optimize performance and ensure data persistence
+- [x] Implement state management (React Context/Zustand)
+- [x] Optimize performance and ensure data persistence
 
 ### 6. Styling & UX (3-5h)
 - Add animations, transitions, and UI improvements
