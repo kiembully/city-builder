@@ -6,10 +6,10 @@ interface ColorSelectProps {
 }
 
 const colors = [
-  { name: "Yellow", value: "yellow-500" },
-  { name: "Blue", value: "blue-500" },
-  { name: "Red", value: "red-500" },
-  { name: "Green", value: "green-500" },
+  { name: "Yellow", value: "#facc15" },
+  { name: "Blue", value: "#3b82f6" },
+  { name: "Red", value: "#ef4444" },
+  { name: "Green", value: "#22c55e" },
 ];
 
 const Select: React.FC<ColorSelectProps> = ({ value, onChange }) => {

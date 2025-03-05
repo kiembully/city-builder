@@ -1,20 +1,25 @@
 "use client";
-import { useState } from "react";
 import Slider from "./forms/Slider";
 import Select from "./forms/Select";
+import useHouseStore from "../store/useHouseStore";
 
 interface ControlCardProps {
+  houseId: number;
   onRemove: () => void;
 }
 
-const ControlCard: React.FC<ControlCardProps> = ({ onRemove }) => {
-  const [floors, setFloors] = useState(4);
-  const [color, setColor] = useState("orange-500");
+const ControlCard: React.FC<ControlCardProps> = ({ houseId, onRemove }) => {
+  const house = useHouseStore((state) =>
+    state.houses.find((h) => h.id === houseId)
+  );
+  const updateHouse = useHouseStore((state) => state.updateHouse);
+
+  if (!house) return null; // Prevent errors if house is not found
 
   return (
     <div className="flex flex-col">
       <div className="flex justify-between items-center">
-        <div className="font-semibold">House</div>
+        <div className="font-semibold">House {houseId}</div>
         <button
           type="button"
           onClick={onRemove}
@@ -25,17 +30,20 @@ const ControlCard: React.FC<ControlCardProps> = ({ onRemove }) => {
       </div>
       <div className="flex w-full space-x-2 mt-2">
         <div className="flex-auto">
-          <div>Floors: {floors}</div>
+          <div>Floors: {house.floors}</div>
           <Slider
-            value={floors}
+            value={house.floors}
             min={1}
             max={10}
             step={1}
-            onChange={setFloors}
+            onChange={(value) => updateHouse(houseId, value, house.color)}
           />
         </div>
         <div className="flex-auto">
-          <Select value={color} onChange={setColor} />
+          <Select
+            value={house.color}
+            onChange={(color) => updateHouse(houseId, house.floors, color)}
+          />
         </div>
       </div>
     </div>
