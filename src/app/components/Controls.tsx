@@ -1,15 +1,11 @@
 "use client";
-import { useState } from "react";
+import useHouseStore from "../store/useHouseStore";
 import ControlCard from "./ControlCard";
 
 const Controls = () => {
-  const [houses, setHouses] = useState([{ id: 1 }]); 
-  const addHouse = () => {
-    setHouses([...houses, { id: Date.now() }]);
-  };
-  const removeHouse = (id: number) => {
-    setHouses(houses.filter((house) => house.id !== id));
-  };
+  const houses = useHouseStore((state) => state.houses);
+  const addHouse = useHouseStore((state) => state.addHouse);
+  const removeHouse = useHouseStore((state) => state.removeHouse);
 
   return (
     <div className="border-2 rounded-md overflow-hidden">
@@ -18,7 +14,11 @@ const Controls = () => {
       </div>
       <div className="bg-gray-700 p-4 space-y-4 flex flex-col">
         {houses.map((house) => (
-          <ControlCard key={house.id} onRemove={() => removeHouse(house.id)} />
+          <ControlCard
+            key={house.id}
+            houseId={house.id}
+            onRemove={() => removeHouse(house.id)}
+          />
         ))}
       </div>
       <div className="flex items-center justify-center bg-gray-800 p-2">
