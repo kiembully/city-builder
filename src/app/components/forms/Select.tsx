@@ -2,7 +2,7 @@ import React from "react";
 
 interface ColorSelectProps {
   value: string;
-  onChange: (color: string) => void;
+  onChange: (value: string) => void;
 }
 
 const colors = [
