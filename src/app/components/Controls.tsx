@@ -1,4 +1,5 @@
 "use client";
+import { useCallback } from "react";
 import useHouseStore from "../store/useHouseStore";
 import ControlCard from "./ControlCard";
 
@@ -6,6 +7,23 @@ const Controls = () => {
   const houses = useHouseStore((state) => state.houses);
   const addHouse = useHouseStore((state) => state.addHouse);
   const removeHouse = useHouseStore((state) => state.removeHouse);
+  const updateHouse = useHouseStore((state) => state.updateHouse);
+
+  // Memoized function to handle updates
+  const handleUpdate = useCallback(
+    (id: number, floors: number, color: string) => {
+      updateHouse(id, floors, color);
+    },
+    [updateHouse]
+  );
+
+  // Memoized function to handle house removal
+  const handleRemove = useCallback(
+    (id: number) => {
+      removeHouse(id);
+    },
+    [removeHouse]
+  );
 
   return (
     <div className="border-2 rounded-md overflow-hidden">
@@ -16,8 +34,11 @@ const Controls = () => {
         {houses.map((house) => (
           <ControlCard
             key={house.id}
-            houseId={house.id}
-            onRemove={() => removeHouse(house.id)}
+            id={house.id}
+            floors={house.floors}
+            color={house.color}
+            onUpdate={(floors, color) => handleUpdate(house.id, floors, color)}
+            onRemove={() => handleRemove(house.id)}
           />
         ))}
       </div>
