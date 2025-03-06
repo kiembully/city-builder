@@ -1,5 +1,5 @@
 "use client";
-import { useCallback } from "react";
+import { memo, useCallback } from "react";
 import useHouseStore from "../store/useHouseStore";
 import ControlCard from "./ControlCard";
 
@@ -9,19 +9,14 @@ const Controls = () => {
   const removeHouse = useHouseStore((state) => state.removeHouse);
   const updateHouse = useHouseStore((state) => state.updateHouse);
 
-  // Memoized function to handle updates
-  const handleUpdate = useCallback(
-    (id: number, floors: number, color: string) => {
-      updateHouse(id, floors, color);
-    },
+  const getUpdateHandler = useCallback(
+    (id: number) => (floors: number, color: string) =>
+      updateHouse(id, floors, color),
     [updateHouse]
   );
 
-  // Memoized function to handle house removal
-  const handleRemove = useCallback(
-    (id: number) => {
-      removeHouse(id);
-    },
+  const getRemoveHandler = useCallback(
+    (id: number) => () => removeHouse(id),
     [removeHouse]
   );
 
@@ -32,13 +27,11 @@ const Controls = () => {
       </div>
       <div className="bg-gray-700 p-4 space-y-4 flex flex-col">
         {houses.map((house) => (
-          <ControlCard
+          <MemoizedControlCard
             key={house.id}
-            id={house.id}
-            floors={house.floors}
-            color={house.color}
-            onUpdate={(floors, color) => handleUpdate(house.id, floors, color)}
-            onRemove={() => handleRemove(house.id)}
+            house={house}
+            onUpdate={getUpdateHandler(house.id)}
+            onRemove={getRemoveHandler(house.id)}
           />
         ))}
       </div>
@@ -54,5 +47,12 @@ const Controls = () => {
     </div>
   );
 };
+
+const MemoizedControlCard = memo(ControlCard, (prevProps, nextProps) => {
+  return (
+    prevProps.house.floors === nextProps.house.floors &&
+    prevProps.house.color === nextProps.house.color
+  );
+});
 
 export default Controls;

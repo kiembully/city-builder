@@ -1,29 +1,27 @@
-"use client";
 import { memo } from "react";
-import Slider from "./forms/Slider";
 import Select from "./forms/Select";
 
 interface ControlCardProps {
-  id: number;
-  floors: number;
-  color: string;
+  house: {
+    id: number;
+    floors: number;
+    color: string;
+  };
   onUpdate: (floors: number, color: string) => void;
   onRemove: () => void;
 }
 
-const ControlCard = ({
-  id,
-  floors,
-  color,
+const ControlCard: React.FC<ControlCardProps> = ({
+  house,
   onUpdate,
   onRemove,
-}: ControlCardProps) => {
-  console.log(`Rendering ControlCard ${id}`);
+}) => {
+  console.log(`Rendering ControlCard ${house.id}`);
 
   return (
     <div className="flex flex-col">
       <div className="flex justify-between items-center">
-        <div className="font-semibold">House {id}</div>
+        <div className="font-semibold">House {house.id}</div>
         <button
           type="button"
           onClick={onRemove}
@@ -34,19 +32,19 @@ const ControlCard = ({
       </div>
       <div className="flex w-full space-x-2 mt-2">
         <div className="flex-auto">
-          <div>Floors: {floors}</div>
-          <Slider
-            value={floors}
-            min={1}
-            max={10}
-            step={1}
-            onChange={(value) => onUpdate(value, color)}
+          <div>Floors: {house.floors}</div>
+          <input
+            type="range"
+            min="1"
+            max="10"
+            value={house.floors}
+            onChange={(e) => onUpdate(Number(e.target.value), house.color)}
           />
         </div>
         <div className="flex-auto">
           <Select
-            value={color}
-            onChange={(newColor) => onUpdate(floors, newColor)}
+            value={house.color}
+            onChange={(selectedValue) => onUpdate(house.floors, selectedValue)}
           />
         </div>
       </div>
@@ -54,4 +52,5 @@ const ControlCard = ({
   );
 };
 
+// ✅ Memoized ControlCard prevents unnecessary re-renders
 export default memo(ControlCard);
